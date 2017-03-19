@@ -22,13 +22,13 @@ bool validateInput(string input) {
 	}
 
 	// If the error is due to an invalid argument
-	catch (invalid_argument& e) {
+	catch (invalid_argument) {
 
 		bool is_valid = false;	
 	}
 
 	// If the error is due to int overflow
-	catch (out_of_range& e) {
+	catch (out_of_range) {
 
 		bool is_valid = false;
 	}
@@ -53,8 +53,8 @@ int main()
 
 	bool inputValid = false;
 
-	int i;
-	int j;
+	unsigned int i; // Unsigned to fix warnings, should be fine since it's just an iterator
+	unsigned int j; // Unsigned to fix warnings, should be fine since it's just an iterator
 	int temp;
 
 	
@@ -78,7 +78,7 @@ int main()
 	v.resize(stoi(userSize));
 
 	// Input the vector values from the user
-	for (i = 0; i < stoi(userSize); i++) {
+	for (i = 0; i < v.size(); i++) {
 		
 		// Reset the validation variable
 		inputValid = false;
@@ -109,7 +109,7 @@ int main()
 		cout << v.at(i) << " ";
 	}
 
-	// Add some space
+	// Console Spacer
 	cout << "\n\n";
 	
 	// Loop the current value
@@ -141,9 +141,12 @@ int main()
 		cout << v.at(i) << " ";
 	}
 
+	// Console Spacer
+	cout << "\n\n";
+
 	// Add a pause at the end
 	while (pause != "quit") {
-		cout << "\nEnter \"quit\" to exit: ";
+		cout << "Enter \"quit\" to exit: ";
 		getline(cin, pause);
 	}
 	
