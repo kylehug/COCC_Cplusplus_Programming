@@ -1,3 +1,0 @@
-# hello-world
-Tutorial Repository
-Kyle was here...
