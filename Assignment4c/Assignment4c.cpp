@@ -15,7 +15,7 @@
 //	NOTES FOR BEEJ:
 //		The function "advanceToTarget" should satisfy goals 1, 2 and 4.
 //		The "main" function and "parseUserInput" should satisfy goal 3.
-//		There are currently some lines commented out which are WIP toward the extra goals. You can ignore them if I didn't get to these goals.
+//		The extras are handled in "drawImage" and parts of "main".
 
 #include <iostream>
 #include <vector>
