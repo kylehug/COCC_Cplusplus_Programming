@@ -1,10 +1,10 @@
 // COCC C++ - Kyle Hug - Assignment 4c
 //
 //	GOALS:
-//  [ ] Write a function that takes a target X and Y and a current X and Y, and modifies the current X and Y so they move one space closer to the target X and Y. 
-//	[ ] If tx == x and ty == y, x and y should return unchanged
-//	[ ] Allow the user to input source and target.
-//	[ ] Write a loop that shows the progression of x and y as they move toward the target.
+//  [X] 1. Write a function that takes a target X and Y and a current X and Y, and modifies the current X and Y so they move one space closer to the target X and Y. 
+//	[X] 2. If tx == x and ty == y, x and y should return unchanged
+//	[ ] 3. Allow the user to input source and target.
+//	[X] 4. Write a loop that shows the progression of x and y as they move toward the target.
 //
 //	EXTRAS:
 //	[ ] Draw a grid representing the world and show the current position as an @, the target as a +, and empty spaces as periods. Each step, redraw the grid so the user can see the progress.
@@ -12,51 +12,122 @@
 //
 //	[ ] Clean up warnings
 //
+//
+//	BEEJ:
+//	The function "advanceToTarget" should satisfy goals 1, 2 and 4.
+//
 
-//#include "stdafx.h"
 #include <iostream>
 #include <vector>
 #include <string>
 
 using namespace std;
 
-// Global constants defining image size
-const int SIZE_Y = 25;
-const int SIZE_X = 75;
+// Global constants defining board size
+const int SIZE_Y = 15;
+const int SIZE_X = 20;
 
 // Function Declarations (Prototypes)
-void generateTerrain(char image[SIZE_Y][SIZE_X]); // Populates the image with the base layer; Ground, Terrain, Board or whatever you want to call it.
-void drawFrame(char image[SIZE_Y][SIZE_X]); // Draws the image on the screen
+bool parsePositionFromUserInput(string userInput, vector<int>& position); // Extract a valid position vector2 from a user input string
+vector<int> advanceToTarget(vector<int>& current, vector<int>& target); // Advances the current position toward the target
+void makeBoard(char image[SIZE_Y][SIZE_X]); // Initialize the board
+void drawImage(char image[SIZE_Y][SIZE_X]); // Draws the board on the screen
 
 // Main function
 int main() {
 
 	// Local Variable Declarations
-	string userPause;
-	vector<int> targetPosition(2);
-	vector<int> currentPosition(2);
-	char image[SIZE_Y][SIZE_X];
+	string userInput;
+	bool validInput = false;
+	vector<int> targetPos(2);
+	vector<int> currentPos(2);
+	char board[SIZE_Y][SIZE_X];
 	
-	// Put in the ground
-	generateTerrain(image);
+	// TODO: Allow the user to specify starting and target positions.
+	currentPos.at(0) = 10;
+	currentPos.at(1) = 15;
+	targetPos.at(0) = 1;
+	targetPos.at(1) = 2;
+	
+	/*
+	while (!validInput) {
+		cout << "Specify the Current (Y,X) position between \"0,0\" and \"15,20\": ";
+		getline(cin, userInput);
+		validInput = parsePositionFromUserInput(userInput, currentPos);
+	}
+	*/
 
-	// Draw the image on screen
-	drawFrame(image);
+	while (currentPos != targetPos) {
+		
+		// Move the character
+		advanceToTarget(currentPos, targetPos);
+	}
+	
+	// Initialize the board
+	//makeBoard(board);
 
+	// Draw the board on screen
+	//drawImage(board);
+
+	userInput.clear();
 	cout << "Type something and press enter to exit...";
-	cin >> userPause;
+	getline(cin, userInput);
 	
 	return 0;
 }
 
-// Populates the image with the base layer; Ground, Terrain, Board or whatever you want to call it.
-void generateTerrain(char image[SIZE_Y][SIZE_X]) {
+// Extract a valid position vector2 from a user input string
+bool parsePositionFromUserInput(string userInput, vector<int>& position) {
+	return false;
+}
+
+// Advances the current position toward the target
+vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
+
+	// Local Variable Declarations
+	int y;
+	int x;
+
+	// Report current position and target position
+	cout << "At " << current.at(0) << ',' << current.at(1) << " going to ";
+	cout << target.at(0) << ',' << target.at(1) << endl;
+
+	// Handle y axis movement. Advance toward the target.
+	if (current.at(0) > target.at(0)) {
+
+		current.at(0) -= 1;
+	}
+	else if (current.at(0) < target.at(0)) {
+
+		current.at(0) += 1;
+	}
+
+	// Handle x axis movement. Advance toward the target.
+	if (current.at(1) > target.at(1)) {
+
+		current.at(1) -= 1;
+	}
+	else if (current.at(1) < target.at(1)) {
+
+		current.at(1) += 1;
+	}
+
+	// Report once target is reached
+	if (current == target) {
+
+		cout << "Target reached\n";
+	}
+	return current;
+}
+
+// Poluates the board 2d array with a base "Board" layer
+void makeBoard(char image[SIZE_Y][SIZE_X]) {
 	
 	// Local Variable Declarations
 	int y;
 	int x;
 
-	// Populate the image with periods
+	// Populate the board with periods
 	for (y = 0; y < SIZE_Y; y++) {
 
 		for (x = 0; x < SIZE_X; x++) {
@@ -67,8 +138,8 @@ void generateTerrain(char image[SIZE_Y][SIZE_X]) {
 	return;
 }
 
-// Redraws the image on the screen
-void drawFrame(char image[SIZE_Y][SIZE_X]) { // BEEJ: Can you explain this syntax for a 2D array parameter to me? - "char (&image)[][]" I don't understand why the brackets around "&image" are neccessary.
+// Redraws the board on the screen
+void drawImage(char image[SIZE_Y][SIZE_X]) {
 
 	// Local Variable Declarations
 	int y;
