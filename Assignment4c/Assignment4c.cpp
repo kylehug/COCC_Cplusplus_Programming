@@ -7,8 +7,8 @@
 //	[X] 4. Write a loop that shows the progression of x and y as they move toward the target.
 //
 //	EXTRAS:
-//	[ ] Draw a grid representing the world and show the current position as an @, the target as a +, and empty spaces as periods. Each step, redraw the grid so the user can see the progress.
-//	[ ] Put a delay in between subsequent grid printouts.
+//	[X] Draw a grid representing the world and show the current position as an @, the target as a +, and empty spaces as periods. Each step, redraw the grid so the user can see the progress.
+//	[X] Put a delay in between subsequent grid printouts.
 //
 //	[X] Clean up warnings
 //
@@ -20,20 +20,20 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
-// Global constants defining board size
+// Global constants defining image size
 const int SIZE_Y = 15;
-const int SIZE_X = 20;
+const int SIZE_X = 15;
 
 // Function Declarations (Prototypes)
 bool parseUserInput(string userInput, vector<int>& position); // Extract a valid position vector2 from a user input string
 vector<int> advanceToTarget(vector<int>& current, vector<int>& target); // Advances the current position toward the target
-void makeBoard(char image[SIZE_Y][SIZE_X]); // Initialize the board
-void drawImage(char image[SIZE_Y][SIZE_X]); // Draws the board on the screen
-void clearScreen(int buffer=100); // Use the multi-newline hack to clear the screen
+void drawImage(char image[SIZE_Y][SIZE_X], vector<int>& current, vector<int>& target); // Draws the image on the screen
+void clearScreen(int buffer=50); // Use the multi-newline hack to clear the screen
 
 // Main function
 int main() {
@@ -43,15 +43,8 @@ int main() {
 	bool validInput = false;
 	vector<int> targetPos(2);
 	vector<int> currentPos(2);
-	//char board[SIZE_Y][SIZE_X];
-	
-	/*
-	// TODO: Allow the user to specify starting and target positions.
-	currentPos.at(0) = 10;
-	currentPos.at(1) = 15;
-	targetPos.at(0) = 1;
-	targetPos.at(1) = 2;
-	*/
+	char image[SIZE_Y][SIZE_X];
+	int i;
 	
 	// Get the user input for the start (current) position
 	clearScreen();
@@ -86,29 +79,58 @@ int main() {
 		}
 	}
 
-	// Display the user specified values before executing
+	// Display the user specified values for a few seconds before executing homing
 	clearScreen();
-	cout << "Start Position: " << currentPos.at(0) << ',' << currentPos.at(1) << endl;
+	cout << "Start Position:  " << currentPos.at(0) << ',' << currentPos.at(1) << endl;
 	cout << "Target Position: " << targetPos.at(0) << ',' << targetPos.at(1) << endl << endl;
+	cout << "Starting in a few seconds... ";
+	for (i = 3; i >= 0; i--) {
+		this_thread::sleep_for(chrono::seconds(1));
+		cout << i << "... ";
+	}
+	clearScreen();
 	
-	while (currentPos != targetPos) {
-		
-		// Move the character
-		advanceToTarget(currentPos, targetPos);
+	// Report if the numbers already match
+	if (currentPos == targetPos) {
+		cout << "The target is already reached...\n";
 	}
 	
-	// Initialize the board
-	//makeBoard(board);
+	// Execute homing
+	while (currentPos != targetPos) {
+		
+		// Move the current position toward target
+		advanceToTarget(currentPos, targetPos);
 
-	// Draw the board on screen
-	//drawImage(board);
+		// Draw the image on screen
+		drawImage(image, currentPos, targetPos);
 
-	// User must enter "quit" to end
+		// Sleep for a second, before iterating if the target hasn't been reached
+		if (currentPos != targetPos) {
+			this_thread::sleep_for(chrono::seconds(1));
+			clearScreen();
+		}
+	}
+
+	// User must enter "quit" or "restart"
 	userInput.clear();
-	while (userInput != "quit") {
+	while (userInput != "quit" && userInput != "restart") {
 
-		cout << "\nEnter \"quit\" to end:\n";
+		cout << "\nEnter \"quit\" to end or \"restart\" to go again:\n";
 		getline(cin, userInput);
+		
+		// End it user entered "quit"
+		if (userInput == "quit") {
+			
+			return 0;
+		}
+
+		// Restart if user entered "restart"
+		if (userInput == "restart") {
+
+			main();
+		}
+
+		clearScreen();
 	}
 }
 
@@ -126,8 +148,8 @@ bool parseUserInput(string userInput, vector<int>& position) {
 	// Extract the values & catch any errors
 	try {
 
+		// Error if no comma
 		commaPos = userInput.find(',');
-		
 		if (commaPos == -1) {
 			throw 1;
 		}
@@ -135,7 +157,11 @@ bool parseUserInput(string userInput, vector<int>& position) {
 		position.at(0) = stoi(userInput.substr(0, commaPos));
 		position.at(1) = stoi(userInput.substr(commaPos + 1, userInput.length()));
 
+		// Error if out of range
 		if ((position.at(0) > SIZE_Y) || (position.at(1) > SIZE_X)) {
+			throw 2;
+		}
+		else if ((position.at(0) < 0) || (position.at(1) < 0)) {
 			throw 2;
 		}
 
@@ -167,6 +193,7 @@ bool parseUserInput(string userInput, vector<int>& position) {
 		cout << "Invalid Input: Only integers are allowed. \"int,int\"\n";
 	}
 
+	// Catch overflow values
 	catch (out_of_range) {
 
 		clearScreen();
@@ -213,46 +240,41 @@ vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
 	// Report once target is reached
 	if (current == target) {
 
+		clearScreen();
 		cout << "Target reached\n";
 	}
 	return current;
 }
 
-// Poluates the board 2d array with a base "Board" layer
-void makeBoard(char image[SIZE_Y][SIZE_X]) {
-	
-	// Local Variable Declarations
-	int y;
-	int x;
-
-	// Populate the board with periods
-	for (y = 0; y < SIZE_Y; y++) {
-
-		for (x = 0; x < SIZE_X; x++) {
-
-			image[y][x] = '.';
-		}
-	}
-	return;
-}
-
-// Redraws the board on the screen
-void drawImage(char image[SIZE_Y][SIZE_X]) {
+// Redraws the image on the screen
+void drawImage(char image[SIZE_Y][SIZE_X], vector<int>& current, vector<int>& target) {
 
 	// Local Variable Declarations
 	int y;
 	int x;
 
-	for (y = 0; y < SIZE_Y; y++) {
+	// Iterate through the image and draw current and target symbols
+	for (y = 0; y <= SIZE_Y; y++) {
+		for (x = 0; x <= SIZE_X; x++) {
 
-		for (x = 0; x < SIZE_X; x++) {
+			// If this is the location of current position
+			if ((y == current.at(0)) && (x == current.at(1))) {
+				cout << " @";
+			}
 
-			cout << ".";
+			// If this is the location of target position
+			else if ((y == target.at(0)) && (x == target.at(1))) {
+				cout << " +";
+			}
+
+			// Otherwise it's empty space
+			else {
+				cout << " .";
+			}
 		}
 
 		cout << endl;
 	}
-	
 	return;
 }
 
