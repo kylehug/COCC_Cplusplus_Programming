@@ -13,9 +13,7 @@
 //	[X] Clean up warnings
 //
 //	NOTES FOR BEEJ:
-//		The function "advanceToTarget" should satisfy goals 1, 2 and 4.
-//		The "main" function and "parseUserInput" should satisfy goal 3.
-//		The extras are handled in "drawImage" and parts of "main".
+//		I've addressed a few of the issues you mentioned in the email. The unrefrenced variable warning (I think), and the use of "flush" to force cout output on all platforms.
 
 #include <iostream>
 #include <vector>
@@ -32,7 +30,7 @@ const int SIZE_X = 15;
 // Function Declarations (Prototypes)
 bool parseUserInput(string userInput, vector<int>& position); // Extract a valid position vector2 from a user input string
 vector<int> advanceToTarget(vector<int>& current, vector<int>& target); // Advances the current position toward the target
-void drawImage(char image[SIZE_Y][SIZE_X], vector<int>& current, vector<int>& target); // Draws the image on the screen
+void drawImage(vector<int>& current, vector<int>& target); // Draws the image on the screen
 void clearScreen(int buffer=50); // Use the multi-newline hack to clear the screen
 
 // Main function
@@ -43,7 +41,7 @@ int main() {
 	bool validInput = false;
 	vector<int> targetPos(2);
 	vector<int> currentPos(2);
-	char image[SIZE_Y][SIZE_X];
+	//char image[SIZE_Y][SIZE_X];
 	int i;
 	
 	// Get the user input for the start (current) position
@@ -86,7 +84,7 @@ int main() {
 	cout << "Starting in a few seconds... ";
 	for (i = 3; i >= 0; i--) {
 		this_thread::sleep_for(chrono::seconds(1));
-		cout << i << "... ";
+		cout << i << "... " << flush;
 	}
 	clearScreen();
 	
@@ -102,7 +100,7 @@ int main() {
 		advanceToTarget(currentPos, targetPos);
 
 		// Draw the image on screen
-		drawImage(image, currentPos, targetPos);
+		drawImage(currentPos, targetPos);
 
 		// Sleep for a second, before iterating if the target hasn't been reached
 		if (currentPos != targetPos) {
@@ -247,7 +245,7 @@ vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
 }
 
 // Redraws the image on the screen
-void drawImage(char image[SIZE_Y][SIZE_X], vector<int>& current, vector<int>& target) {
+void drawImage(vector<int>& current, vector<int>& target) {
 
 	// Local Variable Declarations
 	int y;
