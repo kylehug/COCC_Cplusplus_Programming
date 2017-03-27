@@ -13,7 +13,7 @@
 //	[X] Clean up warnings
 //
 //	NOTES FOR BEEJ:
-//		I've addressed a few of the issues you mentioned in the email. The unrefrenced variable warning (I think), and the use of "flush" to force cout output on all platforms.
+//		I've addressed the feedback. The ?: and signbit doesn't appear to work as expected though.
 
 #pragma warning(1:4100) // Forces the reporting of the warning for unused variables
 
@@ -22,6 +22,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <cmath>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ const int SIZE_X = 15;
 
 // Function Declarations (Prototypes)
 bool parseUserInput(string userInput, vector<int>& position); // Extract a valid position vector2 from a user input string
-vector<int> advanceToTarget(vector<int>& current, vector<int>& target); // Advances the current position toward the target
+vector<int>& advanceToTarget(vector<int>& current, vector<int>& target); // Advances the current position toward the target
 void drawImage(vector<int>& current, vector<int>& target); // Draws the image on the screen
 void clearScreen(int buffer=50); // Use the multi-newline hack to clear the screen
 
@@ -210,12 +211,13 @@ bool parseUserInput(string userInput, vector<int>& position) {
 }
 
 // Advances the current position toward the target
-vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
+vector<int>& advanceToTarget(vector<int>& current, vector<int>& target) {
 
 	// Report current position and target position
 	cout << "At " << current.at(0) << ',' << current.at(1) << " going to ";
 	cout << target.at(0) << ',' << target.at(1) << endl;
 
+	/*
 	// Handle y axis movement. Advance toward the target.
 	if (current.at(0) > target.at(0)) {
 
@@ -225,7 +227,12 @@ vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
 
 		current.at(0) += 1;
 	}
+	*/
 
+	// Handle y axis movement. Advance toward the target. FIXME: NOT BEHAVING CORRECTLY
+	signbit((float)current.at(0) - (float)target.at(0)) ? current.at(0) += 1 : current.at(0) -= 1;
+
+	/*
 	// Handle x axis movement. Advance toward the target.
 	if (current.at(1) > target.at(1)) {
 
@@ -235,6 +242,10 @@ vector<int> advanceToTarget(vector<int>& current, vector<int>& target) {
 
 		current.at(1) += 1;
 	}
+	*/
+
+	// Handle x axis movement. Advance toward the target. FIXME: NOT BEHAVING CORRECTLY
+	signbit((float)current.at(1) - (float)target.at(1)) ? current.at(1) += 1 : current.at(1) -= 1;
 
 	// Report once target is reached
 	if (current == target) {
