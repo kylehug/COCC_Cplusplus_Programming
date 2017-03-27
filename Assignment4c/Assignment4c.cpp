@@ -15,6 +15,8 @@
 //	NOTES FOR BEEJ:
 //		I've addressed a few of the issues you mentioned in the email. The unrefrenced variable warning (I think), and the use of "flush" to force cout output on all platforms.
 
+#pragma warning(1:4100) // Forces the reporting of the warning for unused variables
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -41,7 +43,6 @@ int main() {
 	bool validInput = false;
 	vector<int> targetPos(2);
 	vector<int> currentPos(2);
-	//char image[SIZE_Y][SIZE_X];
 	int i;
 	
 	// Get the user input for the start (current) position
