@@ -1,12 +1,14 @@
 
+#include <time.h>
 #include <iostream>
 #include <string>
+#include <vector>
+#include "GameGold.h"
 #include "GameEngine.h"
 
 bool GameEngine::ProcessInput()
 {
 	do {
-		// FIXME: Validate user input
 		cout << ">";
 		getline(cin, input);
 	}
@@ -35,10 +37,27 @@ bool GameEngine::ProcessInput()
 
 void GameEngine::DrawGame()
 {
-	unsigned int x, y;
 	const unsigned int BOARD_SIZE_X = terrain.GetBoardSizeX();
 	const unsigned int BOARD_SIZE_Y = terrain.GetBoardSizeY();
+	const int NUM_GOLD_PICKUPS = 50;
+	vector<GameGold> goldPickups(NUM_GOLD_PICKUPS);
+	unsigned int i, x, y;
 
+	
+	// Populate goldPickups
+	for (i = 0; i < NUM_GOLD_PICKUPS; i++)
+	{
+		//srand(time(NULL));
+		srand(time(NULL) + i);
+		goldPickups.at(i) = GameGold(rand() % BOARD_SIZE_X + 1, rand() % BOARD_SIZE_Y + 1, rand() % 10 + 1);
+
+		/*
+		cout << "Gold Position: " << goldPickups.at(i).GetPositionX();
+		cout << ", " << goldPickups.at(i).GetPositionY();
+		cout << "\nGold Value: " << goldPickups.at(i).GetGoldValue() << "\n\n";
+		*/
+	}
+	
 	// Clear the board
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
@@ -50,8 +69,15 @@ void GameEngine::DrawGame()
 	{
 		for (x = 0; x < BOARD_SIZE_X; x++)
 		{
-			if ((x == player.GetPositionX()) && (y == player.GetPositionY()))
+			/*
+			for (i = 0; i < NUM_GOLD_PICKUPS; i++)
 			{
+
+			}
+			*/
+			
+			if ((x == player.GetPositionX()) && (y == player.GetPositionY()))
+			{		
 				// Draw the player
 				cout << player.GetSymbol() << ' ';
 			}

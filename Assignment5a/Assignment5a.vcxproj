@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GameGold.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GamePlayer.h" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="Assignment5a.cpp" />
     <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="GameGold.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GamePlayer.cpp" />
