@@ -12,20 +12,19 @@
 //	[ ] 4. Split out the classes into different header files and #include them.
 //
 //	NOTES FOR BEEJ:
-//		I was having trouble getting a vector to work for storing the GameBoard X and Y sizes. It seems I wasn't allowed to specify the size of the vector on declaration.
+//		I was having trouble getting a vector to work for storing the GameBoard GetPositionX and GetPositionY sizes. It seems I wasn't allowed to specify the size of the vector on declaration.
 
 
-#include "stdafx.h"
-#include "GameBoard.h"
-
+#include <iostream>
+#include <string>
+#include "GameEngine.h"
 
 using namespace std;
 
-
 int main()
 {
-	GameBoard terrain(15, 12);
-	terrain.Draw();
+	GameEngine game;
+	game.Run();
 	return 0;
 }
 
