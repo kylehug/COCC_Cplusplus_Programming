@@ -8,18 +8,7 @@ void GamePlayer::SetGold(unsigned int newGold)
 
 void GamePlayer::ChangeGold(int addedGold)
 {
-	// Add/subtract the gold amount, but don't let it drop below 0.
-	
-	int totalGold = goldCount + addedGold;
-
-	if (totalGold < 0)
-	{
-		goldCount = totalGold;
-	}
-	else
-	{
-		goldCount = 0;
-	}
+	goldCount += addedGold;
 }
 
 const unsigned int GamePlayer::GetGold() const

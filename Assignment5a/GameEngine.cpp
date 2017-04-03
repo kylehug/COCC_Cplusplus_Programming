@@ -1,5 +1,4 @@
 
-#include <time.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,7 +17,8 @@ bool GameEngine::ProcessInput()
 	if (input == "quit") return true;
 
 	// Handle movement controls
-	switch (input.at(0)) {
+	switch (input.at(0))
+	{
 		case 'w':
 			player.Move(0, -1);
 			break;
@@ -37,28 +37,9 @@ bool GameEngine::ProcessInput()
 
 void GameEngine::DrawGame()
 {
-	const unsigned int BOARD_SIZE_X = terrain.GetBoardSizeX();
-	const unsigned int BOARD_SIZE_Y = terrain.GetBoardSizeY();
-	const int NUM_GOLD_PICKUPS = 50;
-	vector<GameGold> goldPickups(NUM_GOLD_PICKUPS);
-	unsigned int i, x, y;
+	unsigned int x, y;
 
-	
-	// Populate goldPickups
-	for (i = 0; i < NUM_GOLD_PICKUPS; i++)
-	{
-		//srand(time(NULL));
-		srand(time(NULL) + i);
-		goldPickups.at(i) = GameGold(rand() % BOARD_SIZE_X + 1, rand() % BOARD_SIZE_Y + 1, rand() % 10 + 1);
-
-		/*
-		cout << "Gold Position: " << goldPickups.at(i).GetPositionX();
-		cout << ", " << goldPickups.at(i).GetPositionY();
-		cout << "\nGold Value: " << goldPickups.at(i).GetGoldValue() << "\n\n";
-		*/
-	}
-	
-	// Clear the board
+	// Clear the screen
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
 	// Print the stats
@@ -69,17 +50,21 @@ void GameEngine::DrawGame()
 	{
 		for (x = 0; x < BOARD_SIZE_X; x++)
 		{
-			/*
-			for (i = 0; i < NUM_GOLD_PICKUPS; i++)
-			{
-
-			}
-			*/
-			
 			if ((x == player.GetPositionX()) && (y == player.GetPositionY()))
 			{		
 				// Draw the player
-				cout << player.GetSymbol() << ' ';
+				cout << ' ' << player.GetSymbol();
+
+				// Check for gold. If found pick it up.
+				if (goldMap[y][x].GetGoldValue() != 0)
+				{
+					player.ChangeGold(goldMap[y][x].GetGoldValue());
+					goldMap[y][x].SetGoldValue(0);
+				}
+			}
+			else if (goldMap[y][x].GetGoldValue() != 0)
+			{
+				cout << " $";
 			}
 			else
 			{
@@ -93,10 +78,55 @@ void GameEngine::DrawGame()
 
 void GameEngine::Run()
 {
-	bool done = false;
+	int playerX;
+	int playerY;
+	int roll;
+	unsigned int x, y;
 
+	// Populate the Gold Map
+	for (y = 0; y < BOARD_SIZE_Y; y++)
+	{
+		for (x = 0; x < BOARD_SIZE_X; x++)
+		{
+			roll = rand() % 6 + 1;
+			if (roll > 5)
+			{
+				goldMap[y][x] = GameGold(x, y, rand() % 10 + 1);
+			}
+			else
+			{
+				goldMap[y][x] = GameGold(x, y, 0);
+			}
+		}
+	}
+	
+	bool done = false;
+	
 	while (!done)
 	{
+		
+		// Don't let the player position leave the bounds of the world
+		playerX = player.GetPositionX();
+		playerY = player.GetPositionY();
+
+		if (playerX <= 0)
+		{
+			player.SetPositionX(0);
+		}
+		else if (playerX >= BOARD_SIZE_X)
+		{
+			player.SetPositionX(BOARD_SIZE_X - 1);
+		}
+		
+		if (playerY <= 0)
+		{
+			player.SetPositionY(0);
+		}
+		else if (playerY >= BOARD_SIZE_Y)
+		{
+			player.SetPositionY(BOARD_SIZE_Y - 1);
+		}
+
 		DrawGame();
 		done = ProcessInput();
 	}
@@ -104,6 +134,5 @@ void GameEngine::Run()
 
 GameEngine::GameEngine()
 {
-	terrain.SetBoardSize(32, 24);
-	player.SetPosition(16, 12);
+	player.SetPosition(BOARD_SIZE_X / 2, BOARD_SIZE_Y / 2);
 }

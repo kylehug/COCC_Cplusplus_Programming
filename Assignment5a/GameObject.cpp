@@ -23,9 +23,19 @@ const char GameObject::GetSymbol() const
 	return symbol;
 }
 
-void GameObject::SetPosition(unsigned int newX, unsigned int newY)
+void GameObject::SetPosition(int newX, int newY)
 {
 	positionX = newX;
+	positionY = newY;
+}
+
+void GameObject::SetPositionX(int newX)
+{
+	positionX = newX;
+}
+
+void GameObject::SetPositionY(int newY)
+{
 	positionY = newY;
 }
 
@@ -35,12 +45,12 @@ void GameObject::Move(int moveX, int moveY)
 	positionY += moveY;
 }
 
-const unsigned int GameObject::GetPositionX() const
+const int GameObject::GetPositionX() const
 {
 	return positionX;
 }
 
-const unsigned int GameObject::GetPositionY() const
+const int GameObject::GetPositionY() const
 {
 	return positionY;
 }

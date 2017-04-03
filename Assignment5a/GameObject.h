@@ -14,8 +14,8 @@ private:
 // DECLARES THE "DATA MEMBERS"
 // (internal variables of the class)
 
-	unsigned int positionX;
-	unsigned int positionY;
+	int positionX;
+	int positionY;
 	char symbol;
 
 // "PUBLIC MEMBERS"
@@ -42,14 +42,18 @@ public:
 	const char GetSymbol() const; // "ACCESSOR" (reads a data member's value) "const" makes the function's return value "IMMUTABLE"; cannot be altered. GOOD PRACTICE: Always make accessor functions immutable.
 	
 	// Sets the position of the Game Object	
-	void SetPosition(unsigned int newX, unsigned int newY); // "MUTATOR" (changes data members' values)
+	void SetPosition(int newX, int newY); // "MUTATOR" (changes data members' values)
 	
+	void SetPositionX(int newX);
+
+	void SetPositionY(int newY);
+															
 	// Moves the Object 1 space in a direction	
 	void Move(int moveX, int moveY); 
 	
 	// Get the X position of the Game Object
-	const unsigned int GetPositionX() const; // "ACCESSOR" (reads a data member's value) "const" makes the function's return value "IMMUTABLE"; cannot be altered. GOOD PRACTICE: Always make accessor functions immutable.
+	const int GetPositionX() const; // "ACCESSOR" (reads a data member's value) "const" makes the function's return value "IMMUTABLE"; cannot be altered. GOOD PRACTICE: Always make accessor functions immutable.
 	
 	// Get the Y position of the Game Object	
-	const unsigned int GetPositionY() const; // "ACCESSOR" (reads a data member's value) "const" makes the function's return value "IMMUTABLE"; cannot be altered. GOOD PRACTICE: Always make accessor functions immutable.
+	const int GetPositionY() const; // "ACCESSOR" (reads a data member's value) "const" makes the function's return value "IMMUTABLE"; cannot be altered. GOOD PRACTICE: Always make accessor functions immutable.
 };

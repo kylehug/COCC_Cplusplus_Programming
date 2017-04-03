@@ -5,14 +5,17 @@
 #include <string>
 #include "GameBoard.h"
 #include "GamePlayer.h"
+#include "GameGold.h"
 
 class GameEngine
 {
 private:
 
 	string input;
-	GameBoard terrain;
 	GamePlayer player;
+	static const unsigned int BOARD_SIZE_X = 16;
+	static const unsigned int BOARD_SIZE_Y = 12;
+	GameGold goldMap[BOARD_SIZE_Y][BOARD_SIZE_X];
 
 	// Handles user input
 	bool ProcessInput();

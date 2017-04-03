@@ -145,7 +145,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameGold.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameEngine.h" />
@@ -155,12 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assignment5a.cpp" />
-    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameGold.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GamePlayer.cpp" />
-    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
