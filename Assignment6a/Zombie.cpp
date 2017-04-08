@@ -8,10 +8,12 @@ Zombie::Zombie()
 	setPosition(0, 0);
 }
 
-Zombie::Zombie(int atX, int atY)
+Zombie::Zombie(int atX, int atY, int boundsX, int boundsY)
 {
 	setSymbol(" Z");
 	setPosition(atX, atY);
+	this->boundsX = boundsX;
+	this->boundsY = boundsY;
 }
 
 void Zombie::setSymbol(string newSymbol)
@@ -33,6 +35,16 @@ void Zombie::setPosition(int newX, int newY)
 void Zombie::setPositionX(int newX)
 {
 	positionX = newX;
+
+	// keep position within in the board bounds
+	if (positionX < 0)
+	{
+		positionX = 9;
+	}
+	else if (positionX > 9)
+	{
+		positionX = 0;
+	}
 }
 
 void Zombie::setPositionY(int newY)

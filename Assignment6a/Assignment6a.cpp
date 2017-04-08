@@ -7,7 +7,7 @@ COCC C++ - Assignment 6A - Kyle Hug
 	[ ] 3. Each zombie subclass will have a move() method that will cause it to move.
 	[ ] 4. Write a function that spawns a number of Zombies stored in vector<*Zombie>.
 	[X] 5. Use the "new" operator to create your zombies.
-	[X] 6. Each step, show Zombies on screen, 20 wide and 10 tall. .
+	[X] 6. Each step, show Zombies on screen, 20 wide and 10 tall.
 	[ ] 7. Each zombie type should be identified by a unique character.
 	
 	EXTRAS:
@@ -29,8 +29,9 @@ COCC C++ - Assignment 6A - Kyle Hug
 	[ ] Fix Warnings
 
 	NOTES FOR BEEJ:
-	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie.
-	 - I'm still seeing some warnings with external libraries, but all mine seem to be fixed.
+	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie. This seems kind of uneccessary, but I left it in for the purposes of the assignment.
+	 - I'm still seeing some warnings with external libraries (time.h), I'm ignoring those.
+	 - I'm also seeing warnings related to assignemnt and move operators that are implicitly defined and deleted. What does that mean?
 	 - I'm using a 10x10 grid instead of 10x20 since I'm using spaces to make a more grid-like board.
 */
 

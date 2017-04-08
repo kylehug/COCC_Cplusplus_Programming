@@ -1,5 +1,9 @@
+#ifndef GAMEBOARD_H
+#define GAMEBOARD_H
+
 #include <string>
 #include <vector>
+#include <iostream>
 #include "Zombie.h"
 
 using namespace std;
@@ -29,5 +33,6 @@ public:
 	int getXWidth() const;
 
 	// Get the y height of the board
-	int getYWidth() const;
+	int getYHeight() const;
 };
+#endif

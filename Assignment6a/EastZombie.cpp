@@ -6,13 +6,25 @@ EastZombie::EastZombie()
 	setPosition(0, 0);
 }
 
-EastZombie::EastZombie(int atX, int atY)
+EastZombie::EastZombie(int atX, int atY, int boundsX, int boundsY)
 {
 	setSymbol(" E");
 	setPosition(atX, atY);
+	this->boundsX = boundsX;
+	this->boundsY = boundsY;
 }
 
 void EastZombie::move()
 {
-	setPositionX(positionX + 1);
+	int newXposition = getPositionX() + 1;
+
+	// keep position within in the board bounds
+	if (newXposition >= boundsX)
+	{
+		setPositionX(0);
+	}
+	else
+	{
+		setPositionX(newXposition);
+	}
 }

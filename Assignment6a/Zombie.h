@@ -11,14 +11,17 @@ protected:
 
 	int positionX;
 	int positionY;
+	int boundsX;
+	int boundsY;
 	string symbol;
 
 public:
-	// Default Constructor: Create a Game Object
-	Zombie();
 
+	// Default Constructor
+	Zombie();
+	
 	// Spawn a new Game Object at position (X Position, Y Position)
-	Zombie(int atX, int atY);
+	Zombie(int atX, int atY, int boundsX, int boundsY);
 
 	// Set the symbol used to represent the Game Object on the screen		
 	void setSymbol(string newSymbol);

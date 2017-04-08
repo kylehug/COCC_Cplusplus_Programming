@@ -1,6 +1,4 @@
-#include <iostream>
 #include "GameBoard.h"
-#include "Zombie.h"
 
 GameBoard::GameBoard()
 {
@@ -58,7 +56,8 @@ int GameBoard::getXWidth() const
 	return X_WIDTH;
 }
 
-int GameBoard::getYWidth() const
+int GameBoard::getYHeight() const
 {
 	return Y_HEIGHT;
 }
+
