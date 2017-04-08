@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include <time.h>
 
 using namespace std;
 
@@ -26,6 +27,8 @@ void GameEngine::Run()
 	while (!done) // FIXME: Eventually, once the "people" class has been added, make it continue until there are no more people >:D
 	{
 
+		// FIXME: Spawn a random zombie every once in awhile, instead of all at once at the beginning.
+		
 		Tick();
 
 		// Freeze the game for a half second
@@ -35,9 +38,31 @@ void GameEngine::Run()
 
 GameEngine::GameEngine()
 {
-	// Spawn inital zombies
-	// FIXME: Should be a list and position should be random 
-	zombies.push_back(new Zombie(4, 8, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-	zombies.push_back(new EastZombie(3, 5, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-	zombies.push_back(new NorthZombie(2, 7, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
+	int n, roll, rx, ry;
+
+	// Spawn inital zombies - FIXME: Spawn a random zombie every once in awhile, instead of all at once at the beginning.
+	srand(time(NULL));
+	rx = rand() % BOARD_X_WIDTH;
+	ry = rand() % BOARD_Y_HEIGHT;
+	for (n = 0; n < 8; n++)
+	{
+		roll = rand() % 4;
+
+		if (roll == 0)
+		{
+			zombies.push_back(new Zombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
+		}
+		else if (roll == 1)
+		{
+			zombies.push_back(new EastZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
+		}
+		else if (roll == 2)
+		{
+			zombies.push_back(new NorthZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
+		}
+		else
+		{
+			zombies.push_back(new RandomZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
+		}
+	}
 }

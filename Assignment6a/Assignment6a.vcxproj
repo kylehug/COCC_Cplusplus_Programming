@@ -149,6 +149,7 @@
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="NorthZombie.cpp" />
+    <ClCompile Include="RandomZombie.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="NorthZombie.h" />
+    <ClInclude Include="RandomZombie.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

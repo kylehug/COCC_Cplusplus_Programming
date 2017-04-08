@@ -29,7 +29,7 @@ COCC C++ - Assignment 6A - Kyle Hug
 	[ ] Fix Warnings
 
 	NOTES FOR BEEJ:
-	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie. This seems kind of uneccessary, but I left it in for the purposes of the assignment.
+	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie. This seems kind of uneccessary. I left it in for the purpose of finishing the assignment, but how would I avoid having to do this?
 	 - I'm still seeing some warnings with external libraries (time.h), I'm ignoring those.
 	 - I'm also seeing warnings related to assignemnt and move operators that are implicitly defined and deleted. What does that mean?
 	 - I'm using a 10x10 grid instead of 10x20 since I'm using spaces to make a more grid-like board.

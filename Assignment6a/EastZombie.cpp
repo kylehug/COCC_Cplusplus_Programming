@@ -4,6 +4,8 @@ EastZombie::EastZombie()
 {
 	setSymbol(" E");
 	setPosition(0, 0);
+	boundsX = 0;
+	boundsY = 0;
 }
 
 EastZombie::EastZombie(int atX, int atY, int boundsX, int boundsY)

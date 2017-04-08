@@ -4,6 +4,8 @@ NorthZombie::NorthZombie()
 {
 	setSymbol(" N");
 	setPosition(0, 0);
+	boundsX = 0;
+	boundsY = 0;
 }
 
 NorthZombie::NorthZombie(int atX, int atY, int boundsX, int boundsY)

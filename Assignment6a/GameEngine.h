@@ -9,6 +9,7 @@
 #include "GameBoard.h"
 #include "EastZombie.h"
 #include "NorthZombie.h"
+#include "RandomZombie.h"
 
 class GameEngine
 {
