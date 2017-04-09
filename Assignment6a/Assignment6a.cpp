@@ -3,15 +3,15 @@ COCC C++ - Assignment 6A - Kyle Hug
 
 	GOALS:
 	[X] 1. Create a base class Zombie.
-	[ ] 2. From that create a number of derived classes.
-	[ ] 3. Each zombie subclass will have a move() method that will cause it to move.
-	[ ] 4. Write a function that spawns a number of Zombies stored in vector<*Zombie>.
+	[X] 2. From that create a number of derived classes.
+	[X] 3. Each zombie subclass will have a move() method that will cause it to move.
+	[X] 4. Write a function that spawns a number of Zombies stored in vector<*Zombie>.
 	[X] 5. Use the "new" operator to create your zombies.
 	[X] 6. Each step, show Zombies on screen, 20 wide and 10 tall.
-	[ ] 7. Each zombie type should be identified by a unique character.
+	[X] 7. Each zombie type should be identified by a unique character.
 	
 	EXTRAS:
-	[ ] 1. Use a loop to add lots of zombies.
+	[X] 1. Use a loop to add lots of zombies.
 	[ ] 2. Make a class SlowZombie that only moves once every 2 frames.
 	[ ] 3. Make zombies refuse to overlap eachother.
 	[ ] 4. Add instances of a pers class.
@@ -32,7 +32,7 @@ COCC C++ - Assignment 6A - Kyle Hug
 	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie. This seems kind of uneccessary. I left it in for the purpose of finishing the assignment, but how would I avoid having to do this?
 	 - I'm still seeing some warnings with external libraries (time.h), I'm ignoring those.
 	 - I'm also seeing warnings related to assignemnt and move operators that are implicitly defined and deleted. What does that mean?
-	 - I'm using a 10x10 grid instead of 10x20 since I'm using spaces to make a more grid-like board.
+	 - I'm using a 18x20 grid instead of 10x20, since I'm using spaces to make a more grid-like board.
 */
 
 #include "GameEngine.h"

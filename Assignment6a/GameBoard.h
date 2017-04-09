@@ -13,8 +13,8 @@ class GameBoard
 private:
 	
 	// Private Data Members
-	static const int X_WIDTH = 10;
-	static const int Y_HEIGHT = 10;
+	static const int X_WIDTH = 20;
+	static const int Y_HEIGHT = 18;
 	string empty;
 	string boardImage[Y_HEIGHT][X_WIDTH];
 

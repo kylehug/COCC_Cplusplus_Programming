@@ -22,7 +22,8 @@ void GameBoard::clearBoard()
 
 void GameBoard::drawBoard(vector <Zombie *> drawZombies)
 {
-	int x, y, z, z_x, z_y;
+	unsigned int z;
+	int x, y, z_x, z_y;
 	string z_symb;
 
 	// Clear the board
@@ -39,6 +40,8 @@ void GameBoard::drawBoard(vector <Zombie *> drawZombies)
 
 	// Clear the screen
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+	cout << " Zombies: " << drawZombies.size() << endl;
 
 	// Draw the image
 	for (y = 0; y < Y_HEIGHT; y++)

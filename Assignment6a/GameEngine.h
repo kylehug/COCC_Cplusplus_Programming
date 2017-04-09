@@ -6,6 +6,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <time.h>
 #include "GameBoard.h"
 #include "EastZombie.h"
 #include "NorthZombie.h"
@@ -16,12 +17,16 @@ class GameEngine
 private:
 
 	GameBoard board;
-	const int BOARD_X_WIDTH = board.getXWidth();
-	const int BOARD_Y_HEIGHT = board.getYHeight();
+	int board_x_width;
+	int board_y_height;
+	int spawnChance;
 	vector<Zombie *> zombies;
 
 	// Draws the game world to the screen
 	void Tick();
+
+	// Spawn a random zombie type at a random location
+	void SpawnRandomZombie();
 
 public:
 	// Run the Game

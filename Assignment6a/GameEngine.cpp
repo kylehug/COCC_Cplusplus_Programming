@@ -1,13 +1,30 @@
 #include "GameEngine.h"
-#include <time.h>
 
 using namespace std;
 
 void GameEngine::Tick()
 {	
 	unsigned int z;
+	int roll;
 
-	// Tell the zombies to move
+	srand((unsigned int)time(NULL));
+	
+	// Spawn a random zombie type up to a max number of 10. A zombie has an increasing chance of spawning each frame.
+	if (zombies.size() < 10)
+	{
+		roll = rand() % spawnChance;
+
+		if (roll <= 1)
+		{
+			SpawnRandomZombie();
+			spawnChance = 25;
+		}
+		else
+		{
+			spawnChance -= 1;
+		}
+	}
+	
 	for (z = 0; z < zombies.size(); z++)
 	{
 		Zombie * this_zombie = zombies.at(z);		
@@ -20,15 +37,41 @@ void GameEngine::Tick()
 	board.drawBoard(zombies);
 }
 
+void GameEngine::SpawnRandomZombie()
+{
+	int roll, rx, ry;
+
+	srand((unsigned int)time(NULL));
+	rx = rand() % board_x_width;
+	ry = rand() % board_y_height;
+
+	roll = rand() % 4;
+
+	if (roll == 0)
+	{
+		zombies.push_back(new Zombie(rx, ry, board_x_width, board_y_height));
+	}
+	else if (roll == 1)
+	{
+		zombies.push_back(new EastZombie(rx, ry, board_x_width, board_y_height));
+	}
+	else if (roll == 2)
+	{
+		zombies.push_back(new NorthZombie(rx, ry, board_x_width, board_y_height));
+	}
+	else
+	{
+		zombies.push_back(new RandomZombie(rx, ry, board_x_width, board_y_height));
+	}
+}
+
 void GameEngine::Run()
 {
 	bool done = false;
 
 	while (!done) // FIXME: Eventually, once the "people" class has been added, make it continue until there are no more people >:D
-	{
-
-		// FIXME: Spawn a random zombie every once in awhile, instead of all at once at the beginning.
-		
+	{		
+		// Execute the game tick for this frame
 		Tick();
 
 		// Freeze the game for a half second
@@ -38,31 +81,7 @@ void GameEngine::Run()
 
 GameEngine::GameEngine()
 {
-	int n, roll, rx, ry;
-
-	// Spawn inital zombies - FIXME: Spawn a random zombie every once in awhile, instead of all at once at the beginning.
-	srand(time(NULL));
-	rx = rand() % BOARD_X_WIDTH;
-	ry = rand() % BOARD_Y_HEIGHT;
-	for (n = 0; n < 8; n++)
-	{
-		roll = rand() % 4;
-
-		if (roll == 0)
-		{
-			zombies.push_back(new Zombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-		}
-		else if (roll == 1)
-		{
-			zombies.push_back(new EastZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-		}
-		else if (roll == 2)
-		{
-			zombies.push_back(new NorthZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-		}
-		else
-		{
-			zombies.push_back(new RandomZombie(rx, ry, BOARD_X_WIDTH, BOARD_Y_HEIGHT));
-		}
-	}
+	board_x_width = board.getXWidth();
+	board_y_height = board.getYHeight();
+	spawnChance = 10;
 }
