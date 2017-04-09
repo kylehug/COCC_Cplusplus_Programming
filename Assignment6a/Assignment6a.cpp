@@ -14,10 +14,10 @@ COCC C++ - Assignment 6A - Kyle Hug
 	[X] 1. Use a loop to add lots of zombies.
 	[ ] 2. Make a class SlowZombie that only moves once every 2 frames.
 	[ ] 3. Make zombies refuse to overlap eachother.
-	[ ] 4. Add instances of a pers class.
+	[X] 4. Add instances of a person class.
 	[ ] 5. Make the people (persons) run away.
 	[ ] 6. Make instances of a "Chaser" zombie class that chases people.
-	[ ] 7. Turn caught people into random zombie type.
+	[X] 7. Turn caught people into random zombie type.
 	[ ] 8. Add a damage value to zombies, when it reaches 100, remove them.
 	[ ] 9. Make it so that people cause damage to zombies at a certain range.
 	[ ] 10. Every 50 moves, randomly spawn a new person or zombie.
@@ -29,20 +29,44 @@ COCC C++ - Assignment 6A - Kyle Hug
 	[ ] Fix Warnings
 
 	NOTES FOR BEEJ:
+	 - I set this up to start with a bunch of humans and just one zombie that turns the humans on to zombies on overlap. I thought this would be fun since you can watch the zombie plaque spread to the other humans. >:)
 	 - Seems like I need an empty virtual "move" method in order to use the subclass' "move" when stored in a pointer array of baseclass, in this case Zombie. This seems kind of uneccessary. I left it in for the purpose of finishing the assignment, but how would I avoid having to do this?
 	 - I'm still seeing some warnings with external libraries (time.h), I'm ignoring those.
-	 - I'm also seeing warnings related to assignemnt and move operators that are implicitly defined and deleted. What does that mean?
-	 - I'm using a 18x20 grid instead of 10x20, since I'm using spaces to make a more grid-like board.
+	 - I'm using a 10x10 grid instead of 10x20, since I'm using spaces to make a more square, grid-like board.
 */
 
+#include <string>
 #include "GameEngine.h"
 
 using namespace std;
 
 int main()
 {
+	string userInput = "";
+	bool validInput = false;
+
 	GameEngine game;
 	game.Run();
+
+	while (!validInput) {
+
+		cout << "\n Do you want to \"quit\" or \"restart\" ?\n >";
+		getline(cin, userInput);
+
+		// If the user wants to restart, call self to start over.
+		if (userInput == "restart")
+		{
+			main();
+			validInput = true;
+		}
+
+		// If the user wants to quit, return now to end
+		else if (userInput == "quit")
+		{
+			validInput = true;
+		}
+	}
+
 	return 0;
 }
 

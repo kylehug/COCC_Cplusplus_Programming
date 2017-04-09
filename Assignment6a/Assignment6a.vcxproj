@@ -148,6 +148,7 @@
     <ClCompile Include="EastZombie.cpp" />
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="Human.cpp" />
     <ClCompile Include="NorthZombie.cpp" />
     <ClCompile Include="RandomZombie.cpp" />
     <ClCompile Include="Zombie.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="EastZombie.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Human.h" />
     <ClInclude Include="NorthZombie.h" />
     <ClInclude Include="RandomZombie.h" />
     <ClInclude Include="Zombie.h" />

@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "Zombie.h"
+#include "Human.h"
 
 using namespace std;
 
@@ -13,8 +14,8 @@ class GameBoard
 private:
 	
 	// Private Data Members
-	static const int X_WIDTH = 20;
-	static const int Y_HEIGHT = 18;
+	static const int X_WIDTH = 10;
+	static const int Y_HEIGHT = 10;
 	string empty;
 	string boardImage[Y_HEIGHT][X_WIDTH];
 
@@ -27,12 +28,13 @@ public:
 	void clearBoard();
 
 	// Draw the gameboard to the screen
-	void drawBoard(vector <Zombie *> drawZombies);
+	void drawBoard(vector <Zombie *> drawZombies, vector <Human *> drawHumans);
 
 	// Get the X width of the board
 	int getXWidth() const;
 
 	// Get the y height of the board
 	int getYHeight() const;
+
 };
 #endif

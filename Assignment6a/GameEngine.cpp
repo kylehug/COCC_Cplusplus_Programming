@@ -4,48 +4,64 @@ using namespace std;
 
 void GameEngine::Tick()
 {	
-	unsigned int z;
-	int roll;
-
-	srand((unsigned int)time(NULL));
+	unsigned int z, h;
+	int zx, zy, hx, hy;
 	
-	// Spawn a random zombie type up to a max number of 10. A zombie has an increasing chance of spawning each frame.
-	if (zombies.size() < 10)
+	// Human Actions
+	for (h = 0; h < humans.size(); h++)
 	{
-		roll = rand() % spawnChance;
-
-		if (roll <= 1)
-		{
-			SpawnRandomZombie();
-			spawnChance = 25;
-		}
-		else
-		{
-			spawnChance -= 1;
-		}
+		Human * this_human = humans.at(h);
+		
+		// Move human
+		this_human->move();
 	}
 	
+	// Zombie/Human Actions
 	for (z = 0; z < zombies.size(); z++)
 	{
-		Zombie * this_zombie = zombies.at(z);		
+		Zombie * this_zombie = zombies.at(z);
+		zx = this_zombie->getPositionX();
+		zy = this_zombie->getPositionY();
 
-		// Move the zombie
+		// If the zombie overlaps a human, bite them, turning the human into a zombie. Nom Nom Nom! >:)
+		for (h = 0; h < humans.size(); h++)
+		{
+			Human * this_human = humans.at(h);
+			hx = this_human->getPositionX();
+			hy = this_human->getPositionY();
+			
+			if ((zx == hx) && (zy == hy))
+			{
+				SpawnRandomZombie(hx, hy);
+				humans.erase(humans.begin() + (signed)h);
+			}
+		}
+
+		// Move Zombie
 		this_zombie->move();
 	}
 	
 	// Draw the image of the board on the screen
-	board.drawBoard(zombies);
+	board.drawBoard(zombies, humans);
 }
 
-void GameEngine::SpawnRandomZombie()
+void GameEngine::SpawnRandomZombie(int rx, int ry)
 {
-	int roll, rx, ry;
+	int roll;
 
 	srand((unsigned int)time(NULL));
-	rx = rand() % board_x_width;
-	ry = rand() % board_y_height;
 
-	roll = rand() % 4;
+	if (rx == -1)
+	{
+		rx = rand() % board_x_width;
+	}
+	
+	if (ry == -1)
+	{
+		ry = rand() % board_y_height;
+	}
+
+	roll = rand() % 5;
 
 	if (roll == 0)
 	{
@@ -59,23 +75,43 @@ void GameEngine::SpawnRandomZombie()
 	{
 		zombies.push_back(new NorthZombie(rx, ry, board_x_width, board_y_height));
 	}
-	else
+	else // Random Zombies will spawn more often
 	{
 		zombies.push_back(new RandomZombie(rx, ry, board_x_width, board_y_height));
 	}
+}
+
+void GameEngine::SpawnHuman(unsigned int spawnSeed)
+{
+	int rx, ry;
+
+	srand(spawnSeed);
+	rx = rand() % board_x_width;
+	ry = rand() % board_y_height;
+
+	humans.push_back(new Human(rx, ry, board_x_width, board_y_height));
 }
 
 void GameEngine::Run()
 {
 	bool done = false;
 
-	while (!done) // FIXME: Eventually, once the "people" class has been added, make it continue until there are no more people >:D
+	while (!done)
 	{		
 		// Execute the game tick for this frame
 		Tick();
 
 		// Freeze the game for a half second
 		this_thread::sleep_for(chrono::milliseconds(500));
+
+		// End when humanity has been whiped out
+		if (humans.size() == 0)
+		{
+			done = true;
+			cout << "\n          GAME OVER";
+			cout << "\n Humanity has been whiped out!";
+			cout << "\n OH THE NON-EXISTENT HUMANITY!\n";
+		}
 	}
 }
 
@@ -83,5 +119,18 @@ GameEngine::GameEngine()
 {
 	board_x_width = board.getXWidth();
 	board_y_height = board.getYHeight();
-	spawnChance = 10;
+	unsigned int i;
+	int rx, ry;
+
+	// Populate a random RandomZombie
+	srand((unsigned int)time(NULL));
+	rx = rand() % board_x_width;
+	ry = rand() % board_y_height;
+	zombies.push_back(new RandomZombie(rx, ry, board_x_width, board_y_height));
+	
+	// Populate a dozen humans
+	for (i = 0; i < 12; i++)
+	{
+		SpawnHuman(i);
+	}
 }
