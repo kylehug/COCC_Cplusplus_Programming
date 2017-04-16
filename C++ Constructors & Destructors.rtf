@@ -1,0 +1,104 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 HelveticaNeue-Light;\f2\fmodern\fcharset0 Courier;
+\f3\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid2\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid102\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\margl1440\margr1440\vieww20740\viewh15840\viewkind0
+\deftab720
+\pard\pardeftab720\sl400\sa200\partightenfactor0
+
+\f0\b\fs48 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 C++ Classes
+\fs36 \
+Constructors, Destructors, Copy Constructors & Copy Assignment Operators
+\f1\b0\fs30 \
+\
+We have seen that classes have several special member functions. One of them is:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\sa200\partightenfactor0
+\ls1\ilvl0
+\f0\b \cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Default constructor
+\f1\b0 : A constructor is a class member function that is automatically called immediately after memory is allocated for an object. The constructor's job is to initialize the object's members. A 
+\f0\i\b \cf4 \strokec4 default constructor
+\f1\i0\b0 \cf2 \strokec2  is a version of a constructor that can be invoked without arguments. The default constructor is automatically called when an object is defined as in 
+\f2 MyClass obj;
+\f1  or allocated via the new operator as in 
+\f2 objptr = new MyClass;
+\f1 .\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sl400\sa200\partightenfactor0
+\ls1\ilvl1\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
+\f3 \uc0\u9702 
+\f1 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 If the programmer doesn't define a default constructor for a class, the compiler implicitly defines one having no statements, meaning the constructor does nothing.\cb1 \
+\pard\pardeftab720\sl400\sa200\partightenfactor0
+\cf2 \cb3 \
+\pard\pardeftab720\sl400\sa200\partightenfactor0
+\cf2 \ul \ulc2 Good practice\ulnone  is always initializing variables, a programmer should similarly be explicit in defining a default constructor for a class, making sure to initialize each member.\
+Additional special member functions are:\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\sa200\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Destructor
+\f1\b0 : A 
+\f0\i\b \cf4 \strokec4 destructor
+\f1\i0\b0 \cf2 \strokec2  is a class member function that is automatically called when an object of the class is destroyed, as when the object goes out of scope or is explicitly destroyed as in 
+\f2 delete obj;
+\f1 .\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sl400\sa200\partightenfactor0
+\ls2\ilvl1\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
+\f3 \uc0\u9702 
+\f1 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 If the programmer doesn't define a destructor for a class, the compiler implicitly defines one having no statements, meaning the destructor does nothing.\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\sa200\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Copy constructor
+\f1\b0 : A 
+\f0\i\b \cf4 \strokec4 copy constructor
+\f1\i0\b0 \cf2 \strokec2  is another version of a constructor that can be called with a single pass by reference argument. The copy constructor is automatically called when an object is passed by value to a function such as for the function 
+\f2 SomeFunction(MyClass localObj)
+\f1  and the call 
+\f2 SomeFunction(anotherObj)
+\f1 , when an object is initialized when defined such as 
+\f2 MyClass classObj1 = classObj2;
+\f1 , or when an object is initialized when allocated via "new" as in 
+\f2 obj1Ptr = new MyClass(classObj2);
+\f1 .\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sl400\sa200\partightenfactor0
+\ls2\ilvl1\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
+\f3 \uc0\u9702 
+\f1 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 If the programmer doesn't define a copy constructor for a class, then the compiler implicitly defines one whose statements do a memberwise copy, i.e., 
+\f2 classObj2.memberVal1 = classObj1.memberVal1
+\f1 , 
+\f2 classObj2.memberVal2 = classObj1.memberVal2
+\f1 , etc.\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl400\sa200\partightenfactor0
+\ls2\ilvl0
+\f0\b \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Copy assignment operator
+\f1\b0 : The assignment operator "=" can be overloaded for a class via a member function, known as the 
+\f0\i\b \cf4 \strokec4 copy assignment operator
+\f1\i0\b0 \cf2 \strokec2 , that overloads the built-in function "operator=", the member function having a reference parameter of the class type and returning a reference to the class type.\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sl400\sa200\partightenfactor0
+\ls2\ilvl1\cf2 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
+\f3 \uc0\u9702 
+\f1 	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 If the programmer doesn't define a copy assignment operator, the compiler implicitly defines one that does a memberwise copy.\
+\pard\pardeftab720\sl400\sa200\partightenfactor0
+\cf2 For each of those three special member functions, the implicitly-defined behavior is often sufficient. However, for some cases such as when a class has a pointer member and the default constructor allocates memory for that member, then the programmer likely needs to explicitly define the behavior for all three of those special member functions.\
+The 
+\f0\i\b \cf4 \strokec4 rule of three
+\f1\i0\b0 \cf2 \strokec2  describes a practice that if a programmer explicitly defines any one of those three special member functions (destructor, copy constructor, copy assignment operator), then the programmer should explicitly define all three. For this reason, those three special member functions are sometimes called 
+\f0\i\b \cf4 \strokec4 the big three
+\f1\i0\b0 \cf2 \strokec2 .\
+A \ul good practice\ulnone  is to always follow the rule of three and define the big three (destructor, copy constructor, copy assignment operator) if any one of these functions are defined.\
+\pard\tx720\tx1440\pardeftab720\sl400\sa200\partightenfactor0
+\cf2 \cb1 \
+}

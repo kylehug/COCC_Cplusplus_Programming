@@ -1,0 +1,71 @@
+/*
+Working with pointers - C++ Notes and Examples
+/*
+
+//
+// Example 1: Assigning and dereferencing a variables address in another pointer variable
+//
+#include <iostream>
+using namespace std;
+
+int main() {
+   int* numItemsPtr = 0;
+   int numItems = 99;
+
+   // Assign the memory address of numItems to numItmesPtr
+   numItemsPtr = &numItems;
+   
+   // Print the value of numItems by dereferencing numItemsPtr
+   cout << "Items: " << *numItemsPtr << endl;
+
+   return 0;
+}
+
+
+//
+// Example 2: Allocating Memory using the "new" pointer operator
+//
+#include <iostream>
+using namespace std;
+
+int main() {
+   double* houseHeight = 0;
+
+   // Allocate memory for the double pointer variable "houseHeight"
+   houseHeight = new double;
+
+   *houseHeight = 23;
+   cout << "houseHeight is " << *houseHeight;
+
+   return 0;
+}
+
+
+//
+// Example 3: Deallocating memory using the "delete" pointer operator
+//
+#include <iostream>
+using namespace std;
+
+class PaintContainer {
+   public:
+      ~PaintContainer();
+      double gallonPaint;
+};
+
+PaintContainer::~PaintContainer() { // Covered in section on Destructors.
+   cout << "PaintContainer deallocated." << endl;
+   return;
+}
+
+int main() {
+   PaintContainer* kitchenPaint;
+
+   kitchenPaint = new PaintContainer;
+   kitchenPaint->gallonPaint = 26.3;
+
+   // Deallocate memory for pointer variable "kitchenPaint", now that we're done with it
+   delete kitchenPaint;
+
+   return 0;
+}
