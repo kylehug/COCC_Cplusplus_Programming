@@ -50,3 +50,28 @@ int Stack::pop()
 
 	return r;
 }
+
+void Stack::peek()
+{
+	if (top != NULL)
+	{
+		cout << "Stack: Top item is " << top->value << " at address " << top << endl;
+	}
+	else
+	{
+		cout << "Stack: The stack is empty\n";
+	}
+
+	return;
+}
+
+bool Stack::isEmpty()
+{
+	if (top == NULL) {
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
