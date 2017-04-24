@@ -2,7 +2,11 @@
 COCC C++ - Assignment 8B - Kyle Hug
 
 GOALS:
-[ ] Write a function add() that takes 4 parameters of arbitrary types and adds them together...
+[X] Write a function add() that takes 4 parameters of arbitrary types and adds them together...
+
+EXTRAS:
+[X] What happens when you try add("A","B","C","D")? Why?
+[X] What happens when you try add(string("A"),2,3,4)? Why?
 
 */
 
