@@ -36,17 +36,33 @@ void Stack::push(int v)
 
 int Stack::pop()
 {
-	IntStackNode *node = top;
-	int r = node->value;
+	int r;
 
-	// Set top to the next node before deleting the current top item
-	top = top->next;
+	try
+	{
+		if (isEmpty())
+		{
+			throw runtime_error("Runtime Error: The Stack is Empty.");
+		}
 
-	// Delete the current top-most item
-	delete node;
+		IntStackNode *node = top;
+		r = node->value;
 
-	// Print what happened
-	cout << "Stack: Removed item " << r << " from the stack\n";
+		// Set top to the next node before deleting the current top item
+		top = top->next;
+
+		// Delete the current top-most item
+		delete node;
+
+		// Print what happened
+		cout << "Stack: Removed item " << r << " from the stack\n";
+	}
+
+	catch (runtime_error& e)
+	{
+		cout << e.what() << endl;
+		r = NULL;
+	}
 
 	return r;
 }
@@ -59,7 +75,7 @@ void Stack::peek()
 	}
 	else
 	{
-		cout << "Stack: The stack is empty\n";
+		cout << "Stack: The Top item is empty\n";
 	}
 
 	return;

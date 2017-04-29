@@ -7,6 +7,9 @@ GOALS:
 EXTRAS:
 [ ] Add a class StackException that subclasses (inherits) from runtime_error.
 
+NOTES FOR BEEJ:
+	The Runtime Error Exception, added for this assignment, starts in Stack.cpp at line 41.
+
 */
 
 #include <iostream>
@@ -43,15 +46,7 @@ int main()
 		// Remove the top item from the stack if the user enters "pop"
 		else if (userInput == "pop")
 		{
-			// Make sure the stack isn't empty first
-			if (!theStack.isEmpty())
-			{
-				theStack.pop();
-			}
-			else
-			{
-				cout << "\nThe Stack is Empty\n";
-			}
+			theStack.pop();
 		}
 
 		// If the user enters peek
